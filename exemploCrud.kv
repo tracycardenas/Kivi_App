@@ -1,0 +1,693 @@
+#:kivy 1.11.1
+<AdministrarVentanas>:
+    VentanaInicial:
+    RegistroProfesor:
+    ListarProfesores:
+    RegistroMateria:
+    ListarMaterias:
+    RegistroAlumno:
+    ListarAlumnos:
+    
+
+<VentanaInicial>:
+    name: 'VentanaInicial'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        canvas:
+            Rectangle:
+                source: 'logo.png'
+                pos: root.pos
+                size: self.size
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: 200
+            size_hint_x: .5
+            Label:
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, .7
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                text: "PROFESORES"
+                color: [0, 0, 0, .7]
+                font_size: "18sp"
+            Button:
+                id: buttonRegistrar
+                on_release: app.root._ventanaProfesor.mostrarVentanaAtRegistro(self)
+                text: 'Registrar'
+
+            Button:
+                on_release: app.root.ventanaListarProfesores()
+                text: 'Listar Profesores'
+
+            Label:
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, .7
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                text: "MATERIAS"
+                color: [0, 0, 0, .7]
+                font_size: "18sp"
+            Button:
+                id: buttonRegistrar
+                on_release: app.root._ventanaMateria.mostrarVentanaAtRegistro(self)
+                text: 'Registrar'
+
+            Button:
+                on_release: app.root.ventanaListarMaterias()
+                text: 'Listar Materias'
+            Label:
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, .7
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                text: "ALUMNOS"
+                font_size: "18sp"
+                color: [0, 0, 0, 1]
+
+            Button:
+                on_release: app.root._ventanaAlumno.mostrarVentanaAtRegistro(self)
+                text: 'Registrar'
+
+            Button:
+                on_release: app.root.ventanaListarAlumnos()
+                text: 'Listar Alumnos'
+
+ # termino da ventanaInicial
+
+<RegistroMateria>:
+    name: 'RegistroMateria'
+
+    AnchorLayout:
+        id: interno
+        anchor_x: 'center'
+        anchor_y: 'center'
+        BoxLayout:
+            id: interno1
+            orientation: 'vertical'
+            size_hint: [0.7, 1]
+            canvas:
+                Color:
+                    rgba: .30, .25, .1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                id: lblId
+                color:[0,0,0,.8]
+                size_hint: [1, .15]
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, .6
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+            Label:
+                text: "Nombre:"
+                size_hint: [1, .25]
+
+            TextInput:
+                id: inputNombre
+                hint_text: 'Ingrese nombre'
+                size_hint: [1, .15]
+                multiline: False
+            
+            Label:
+                text: 'Profesor:'
+                size_hint: [1, .25]
+
+            Spinner:
+                id: spProfesor
+                text: 'Selecione...'
+                size_hint: [1,.15]
+                height: "15dp"
+                background_color:(0,0,0,.5)
+                color: [1,1,1,1]
+
+            Label:
+                text: 'Modalidad:'
+                size_hint: [1, .15]
+
+            GridLayout:
+                id: modalidad
+                cols: 6
+
+                row_default_height: '1dp'
+
+                Label:
+                    text: 'Matutina'
+                    font_size: '12sp'
+                    valign: 'middle'
+                    size_hint: [1, .1]
+
+                CheckBox:
+                    group: 'turno'
+                    id : chkMatutino
+                    value: "Matutina"
+                    size_hint: [1, .25]
+
+                Label:
+                    text: 'Vespertina'
+                    font_size: '12sp'
+                    valign: 'middle'
+                    size_hint: [1, .25]
+
+                CheckBox:
+                    group: 'turno'
+                    id: chkVespertino
+                    value: "Vespertina"
+                    size_hint: [1, .25]
+
+                Label:
+                    text: 'Nocturna'
+                    font_size: '12sp'
+                    valign: 'middle'
+                    size_hint: [1, .25]
+
+                CheckBox:
+                    group: 'turno'
+                    id: chkNocturno
+                    value: "Nocturna"
+                    size_hint: [1, .25]
+            
+           
+
+            GridLayout:
+                cols: 2
+                size_hint: [1, 0.25]
+                orientation: 'lr-tb'
+                padding : [0,20,0,0]
+
+    GridLayout:
+        cols: 2
+        size_hint: [1, 0.25]
+        orientation: 'lr-tb'
+        Button:
+            id: btRegistroActual
+            on_release: app.root.registrarActualizar()
+            text: 'Registrar'
+            size_hint: [1, 0.25]
+
+        Button:
+            on_release: app.root.ventanaInicial()
+            text: 'Ventana Inicial'
+            size_hint: [1, 0.25]
+
+<RegistroProfesor>:
+    name: 'RegistroProfesor'
+
+    AnchorLayout:
+        id: interno
+        anchor_x: 'center'
+        anchor_y: 'center'
+        BoxLayout:
+            id: interno1
+            orientation: 'vertical'
+            size_hint: [0.7, 0.5]
+            canvas:
+                Color:
+                    rgba: .30, .25, .1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text: 'ID:'
+                size_hint: [1,.25]
+
+            Label:
+                id: lblIdProfesor
+                color:[0,0,0,.8]
+                size_hint: [1, .15]
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, .6
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+            Label:
+                text: "Nombre:"
+                size_hint: [1, .25]
+
+            TextInput:
+                id: inputNombre
+                hint_text: 'Ingrese nombre'
+                size_hint: [1, .15]
+                multiline: False
+
+            Label:
+                text: 'Especialidad:'
+                size_hint: [1, .25]
+            
+            TextInput:
+                id: inputEspecialidad
+                hint_text: 'Ingrese especialidad'
+                size_hint: [1, .15]
+                multiline: False
+
+    GridLayout:
+        cols: 2
+        size_hint: [1, 0.25]
+        orientation: 'lr-tb'
+        Button:
+            id: btRegistroActual
+            on_release: app.root.registrarActualizarProfesor()
+            text: 'Registrar'
+            size_hint: [0.5, 0.25]
+
+        Button:
+            on_release: app.root.ventanaInicial()
+            text: 'Ventana Inicial'
+            size_hint: [0.5, 0.25]
+
+<ListarMaterias>:
+    name: 'ListarMaterias'
+    BoxLayout:
+        orientation: 'vertical'
+        canvas:
+            Color:
+                rgba: .30, .25, .1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Label:
+            text: 'Buscar Materias:'
+            font_size: '18sp'
+            size_hint_y: None
+            height: '50dp'
+
+        GridLayout:
+            cols: 3
+            size_hint_y: None
+            height: '30dp'
+            size_hint_x: .5
+            Label:
+                text:'Id'
+            TextInput:
+                id: inputId
+                hint_text: 'Id para buscar'
+                size_hint: [1, 1]
+                multiline: False
+            Button:
+                on_release: app.root.buscarMaterias()
+                text: 'Buscar...'
+                size_hint: [1, 1]
+
+        GridLayout:
+            id: listaMaterias
+            cols: 6
+            size_hint_y: None
+            height: '400dp'
+            canvas:
+                Color:
+                    rgba: .80, .69, .58, .6
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                id: colId
+                text: 'Id'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .2
+                color: [0,0,0,1]
+
+            Label:
+                id: colNombre
+                text: 'Nombre'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .6
+                color: [0,0,0,1]
+
+            Label:
+                id: colModalidad
+                text: 'Modalidad'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .2
+                color: [0,0,0,1]
+
+            Label:
+                id: colProfesor
+                text: 'Profesor'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .1
+                color: [0,0,0,1]
+
+            Label:
+                id: lblActual
+                text: 'Actualizar'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .1
+                color: [0,0,0,1]
+            Label:
+                id: lblEliminar
+                text: 'Eliminar'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .1
+                color: [0,0,0,1]
+
+        AnchorLayout:
+            id: interno
+            anchor_x: 'center'
+            anchor_y: 'center'
+
+            Button:
+                on_release: app.root.ventanaInicial()
+                text: 'Ventana Inicial'
+                size_hint_y: .5
+                size_hint_x: .3
+
+<ListarProfesores>:
+    name: 'ListarProfesores'
+    BoxLayout:
+        orientation: 'vertical'
+        canvas:
+            Color:
+                rgba: .30, .25, .1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Label:
+            text: 'Buscar Profesores:'
+            font_size: '18sp'
+            size_hint_y: None
+            height: '50dp'
+
+        GridLayout:
+            cols: 3
+            size_hint_y: None
+            height: '30dp'
+            size_hint_x: .5
+            Label:
+                text:'Id'
+            TextInput:
+                id: inputId
+                hint_text: 'Id para buscar'
+                size_hint: [1, 1]
+                multiline: False
+            Button:
+                on_release: app.root.buscarProfesores()
+                text: 'Buscar...'
+                size_hint: [1, 1]
+
+        GridLayout:
+            id: listaProfesores
+            cols: 5
+            size_hint_y: None
+            height: '400dp'
+            canvas:
+                Color:
+                    rgba: .80, .69, .58, .6
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                id: colId
+                text: 'Id'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .2
+                color: [0,0,0,1]
+
+            Label:
+                id: colNombre
+                text: 'Nombre'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .6
+                color: [0,0,0,1]
+
+            Label:
+                id: colEspecialidad
+                text: 'Especialidad'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .2
+                color: [0,0,0,1]
+            Label:
+                id: lblActual
+                text: 'Actualizar'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .1
+                color: [0,0,0,1]
+            Label:
+                id: lblEliminar
+                text: 'Eliminar'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .1
+                color: [0,0,0,1]
+
+        AnchorLayout:
+            id: interno
+            anchor_x: 'center'
+            anchor_y: 'center'
+
+            Button:
+                on_release: app.root.ventanaInicial()
+                text: 'Ventana Inicial'
+                size_hint_y: .5
+                size_hint_x: .3
+
+
+<RegistroAlumno>:
+    name: "RegistroAlumno"
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: [0.7, .8]
+            canvas:
+                Color:
+                    rgba: .30, .25, .1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text: 'ID:'
+                size_hint: [1,.25]
+
+            Label:
+                id: lblIdAlumno
+                color:[0,0,0,.8]
+                size_hint: [1, .15]
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, .6
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+            Label:
+                text: "Nombre:"
+                size_hint: [1, .25]
+            TextInput:
+                id: txtNombreAlumno
+                hint_text: 'Nombre del alumno'
+                size_hint: [1, .15]
+                multiline: False
+
+            Label:
+                text: 'Fecha de Nacimento:'
+                size_hint: [1, .25]
+            TextInput:
+                id: txtFechaNacAlumno
+                hint_text: 'dd/mm/aaaa'
+                size_hint: [1, .15]
+                multiline: False
+
+            Label:
+                text: 'Materia:'
+                size_hint: [1, .25]
+
+            Spinner:
+                id: spMateria
+                text: 'Selecione...'
+                size_hint: [1,.15]
+                height: "15dp"
+                background_color:(0,0,0,.5)
+                color: [1,1,1,1]
+
+            GridLayout:
+                cols: 2
+                size_hint: [1, 0.25]
+                orientation: 'lr-tb'
+                padding : [0,20,0,0]
+
+                Button:
+                    id: btRegistroActualAlumno
+                    on_release: app.root.registrarActualizarAlumno()
+                    text: 'Registrar'
+                    size_hint: [1, 0.25]
+
+                Button:
+                    on_release: app.root.ventanaInicial()
+                    text: 'Ventana Inicial'
+                    size_hint: [1, 0.25]
+
+
+<listarAlumnos>:
+    name: "ListarAlumnos"
+
+    BoxLayout:
+        id: busquedas
+        orientation: 'vertical'
+        canvas:
+            Color:
+                rgba: .30, .25, .1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Label:
+            text: 'Buscar Alumnos:'
+            font_size: '18sp'
+            size_hint_y: None
+            height: '50dp'
+
+        GridLayout:
+            canvas.before:
+                Color:
+                    rgba: .80, .69, .58, .6
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            cols: 4
+            Label:
+                text: "Buscar por Id"
+                color: [0,0,0,.8]
+            CheckBox:
+                group: "tipoPesq"
+                id: chkBuscId
+                value: "id"
+                size_hint: [1, .25]
+                active: True
+                on_active: app.root._ventanaAlumno.alternarBusq(self.value)
+
+            Label:
+                text: "Buscar por Nombre"
+                color: [0,0,0,.8]
+            CheckBox:
+                group: "tipoPesq"
+                id: chkBuscNombre
+                value: "nombre"
+                size_hint: [1, .25]
+                on_active: app.root._ventanaAlumno.alternarBusq(self.value)
+
+        GridLayout:
+            id: buscId
+            cols: 3
+            size_hint_y: None
+            height: '30dp'
+
+            size_hint_x: .7
+            Label:
+                text:'Id'
+            TextInput:
+                id: inputIdAlumno
+                hint_text: 'Id para busqueda'
+                size_hint: [1, 1]
+                multiline: False
+            Button:
+                on_release: app.root.buscarAlumnos()
+                text: 'Buscar...'
+                size_hint: [1, 1]
+
+        GridLayout:
+            id: buscNombre
+            cols: 3
+            size_hint_y: None
+            height: '30dp'
+            size_hint_x: .7
+            Label:
+                text:'Nombre'
+            TextInput:
+                id: inputBuscNombre
+                hint_text: 'Nombre para buscar'
+                size_hint: [1, 1]
+                multiline: False
+            Button:
+                on_release: app.root.buscarAlumnosNombre(inputBuscNombre.text)
+                text: 'Buscar...'
+                size_hint: [1, 1]
+
+        GridLayout:
+            id: listaAlumnos
+            cols: 6
+            size_hint_y: None
+            height: '400dp'
+            canvas:
+                Color:
+                    rgba: .80, .69, .58, .6
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                id: colIdAlumno
+                text: 'Id'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .04
+                color: [0,0,0,1]
+
+            Label:
+                id: colNombreAlumno
+                text: 'Nombre'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .01
+                color: [0,0,0,1]
+            Label:
+                id: colFechaNac
+                text: 'Fecha Nacimiento.'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .05
+                color: [0,0,0,1]
+
+            Label:
+                id: colMateria
+                text: 'Materia'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .08
+                color: [0,0,0,1]
+            Label:
+                id: lblActual
+                text: 'Actualizar'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .02
+                color: [0,0,0,1]
+            Label:
+                id: lblEliminar
+                text: 'Eliminar'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .02
+                color: [0,0,0,1]
+
+        AnchorLayout:
+            id: interno
+            anchor_x: 'center'
+            anchor_y: 'center'
+
+            Button:
+                on_release: app.root.ventanaInicial()
+                text: 'Ventana Inicial'
+                size_hint_y: .5
+                size_hint_x: .3
